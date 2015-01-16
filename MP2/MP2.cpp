@@ -30,10 +30,10 @@ struct node
 };
 
 // Declaration for function that adds a node to the end of the list
-void addNode(node *root, string input);
+void addNode(node *, string);
 
 // Declaration for function that traverses the list
-void traverse();
+void traverse(node *);
 
 int main()
 {
@@ -48,19 +48,44 @@ int main()
 	root->myString = rootInput;
 	
 	// Add more nodes to the linked list
+	node *currentRec = root;
 	string input;
 	do
 	{
 		cout << "Please enter a string, or type \"0\" to quit: ";
 		cin >> input;
-		addNode(input);
+		addNode(currentRec, input);
 	} while (input != "0");
+
+	cout << "Traversing...";
+	traverse(root);
 	
 	system("PAUSE");
 	return 0;
 }
 
-void addNode(string input)
+void addNode(node *currentRec, string input)
 {
+	currentRec->myString = input;
+	cout << currentRec->myString << endl;
+	currentRec->nextRec = new node;
+	currentRec = currentRec->nextRec;
+	currentRec->nextRec = NULL;
+	// cout << "adding node...";
+}
 
+void traverse(node *currentRec)
+{
+	if (currentRec != 0)
+	{
+		cout << currentRec->myString << endl;
+		while (currentRec->nextRec)
+		{
+			cout << "reassigning currentRec ";
+			currentRec = currentRec->nextRec;
+			cout << "currentRec is reassigned ";
+			cout << currentRec->myString << endl;
+		}
+		cout << "End of list.";
+	}
 }
