@@ -59,7 +59,10 @@ int main()
 
 	cout << "Traversing...";
 	traverse(root);
-	
+	cout << "...End traversing" << endl;
+
+	cout << root->myString;
+
 	system("PAUSE");
 	return 0;
 }
@@ -79,13 +82,13 @@ void traverse(node *currentRec)
 	if (currentRec != 0)
 	{
 		cout << currentRec->myString << endl;
-		while (currentRec->nextRec)
+		/*while (currentRec->nextRec != NULL)
 		{
 			cout << "reassigning currentRec ";
 			currentRec = currentRec->nextRec;
 			cout << "currentRec is reassigned ";
 			cout << currentRec->myString << endl;
-		}
+		}*/
 		cout << "End of list.";
 	}
 }
