@@ -17,7 +17,6 @@ Create a delete function that uses the search function to remove a node from the
 // http://www.cprogramming.com/snippets/source-code/singly-linked-list-insert-remove-add-count
 
 #include <iostream>
-#include <fstream>
 #include <string>
 
 using namespace std;
@@ -26,7 +25,7 @@ using namespace std;
 struct node
 {
 	string myString;
-	struct node *nextRec;
+	node *nextRec;
 };
 
 // Declaration for function that adds a node to the end of the list
@@ -61,34 +60,29 @@ int main()
 	traverse(root);
 	cout << "...End traversing" << endl;
 
-	cout << root->myString;
-
 	system("PAUSE");
 	return 0;
 }
 
 void addNode(node *currentRec, string input)
 {
-	currentRec->myString = input;
-	cout << currentRec->myString << endl;
-	currentRec->nextRec = new node;
-	currentRec = currentRec->nextRec;
-	currentRec->nextRec = NULL;
-	// cout << "adding node...";
+	node* temp = new node; // Create a temporary struct pointer
+	currentRec->nextRec = temp; // Assign this pointer to the current node's nextRec field
+	temp->myString = input; // Assign the user's input to the string field
+	cout << temp->myString << endl;
+	temp->nextRec = NULL;
 }
 
-void traverse(node *currentRec)
+void traverse(node *start)
 {
-	if (currentRec != 0)
+	if (start != NULL)
 	{
-		cout << currentRec->myString << endl;
-		/*while (currentRec->nextRec != NULL)
+		node *temp = start;
+		while (temp->nextRec != NULL)
 		{
-			cout << "reassigning currentRec ";
-			currentRec = currentRec->nextRec;
-			cout << "currentRec is reassigned ";
-			cout << currentRec->myString << endl;
-		}*/
+			cout << temp->myString << " ";
+			temp = temp->nextRec;
+		}
 		cout << "End of list.";
 	}
 }
