@@ -66,22 +66,29 @@ int main()
 
 void addNode(node *currentRec, string input)
 {
-	node* temp = new node; // Create a temporary struct pointer
+	/*node* temp = new node; // Create a temporary struct pointer
 	currentRec->nextRec = temp; // Assign this pointer to the current node's nextRec field
 	temp->myString = input; // Assign the user's input to the string field
 	cout << temp->myString << endl;
-	temp->nextRec = NULL;
+	temp->nextRec = NULL;*/
+
+	cout << currentRec->myString << endl;
+	currentRec->nextRec = new node;
+	currentRec = currentRec->nextRec;
+	currentRec->myString = input;
+	cout << currentRec->myString << endl;
+	currentRec->nextRec = NULL;
 }
 
 void traverse(node *start)
 {
 	if (start != NULL)
 	{
-		node *temp = start;
-		while (temp->nextRec != NULL)
+		node *conductor = start;
+		while (conductor->nextRec != NULL)
 		{
-			cout << temp->myString << " ";
-			temp = temp->nextRec;
+			cout << conductor->myString << " ";
+			conductor = conductor->nextRec;
 		}
 		cout << "End of list.";
 	}
