@@ -29,10 +29,16 @@ struct node
 };
 
 // Declaration for function that adds a node to the end of the list
-void addNode(node *, string);
+void addNode(node * &, string);
+
+// Declaration for function that prints a single struct node
+void printNode(node *);
 
 // Declaration for function that traverses the list
 void traverse(node *);
+
+// Declaration for function that searches the list for a user-entered string
+
 
 int main()
 {
@@ -53,31 +59,31 @@ int main()
 	{
 		cout << "Please enter a string, or type \"0\" to quit: ";
 		cin >> input;
+		if (input == "0")
+		{
+			break;
+		}
 		addNode(currentRec, input);
-	} while (input != "0");
+	} while (true);
 
-	cout << "Traversing...";
 	traverse(root);
-	cout << "...End traversing" << endl;
 
 	system("PAUSE");
 	return 0;
 }
 
-void addNode(node *currentRec, string input)
+void addNode(node * &currentRec, string input)
 {
-	/*node* temp = new node; // Create a temporary struct pointer
-	currentRec->nextRec = temp; // Assign this pointer to the current node's nextRec field
-	temp->myString = input; // Assign the user's input to the string field
-	cout << temp->myString << endl;
-	temp->nextRec = NULL;*/
-
-	cout << currentRec->myString << endl;
 	currentRec->nextRec = new node;
 	currentRec = currentRec->nextRec;
-	currentRec->myString = input;
-	cout << currentRec->myString << endl;
 	currentRec->nextRec = NULL;
+	currentRec->myString = input;
+	return;
+}
+
+void printNode(node * nodeToPrint)
+{
+	cout << nodeToPrint->myString;
 }
 
 void traverse(node *start)
@@ -85,11 +91,11 @@ void traverse(node *start)
 	if (start != NULL)
 	{
 		node *conductor = start;
-		while (conductor->nextRec != NULL)
+		while (conductor != NULL)
 		{
-			cout << conductor->myString << " ";
+			printNode(conductor);
 			conductor = conductor->nextRec;
 		}
-		cout << "End of list.";
+		cout << endl;
 	}
 }
