@@ -28,17 +28,13 @@ struct node
 	node *nextRec;
 };
 
-// Declaration for function that adds a node to the end of the list
-void addNode(node * &, string);
-
-// Declaration for function that prints a single struct node
-void printNode(node *);
-
-// Declaration for function that traverses the list
-void traverse(node *);
-
-// Declaration for function that searches the list for a user-entered string
-
+// Function Declarations
+void addNode(node * &, string); // adds a node to the end of the list
+void printNode(node *); // prints a single struct node
+void traverse(node *); // traverses the list and prints out contents in the nodes
+node * searchList(node * &, string); // searches the list for a user-entered string, returns the pointer to the "found" struct node
+void insertNode(); // inserts a node in to the list
+void deleteNode(node * &, string); // deletes a node from anywhere in the list
 
 int main()
 {
@@ -66,7 +62,11 @@ int main()
 		addNode(currentRec, input);
 	} while (true);
 
+	// Traverse the linked list
 	traverse(root);
+
+	// TEST testing the search method
+	node *myTest = searchList(root, "joe");
 
 	system("PAUSE");
 	return 0;
@@ -84,6 +84,7 @@ void addNode(node * &currentRec, string input)
 void printNode(node * nodeToPrint)
 {
 	cout << nodeToPrint->myString;
+	return;
 }
 
 void traverse(node *start)
@@ -94,8 +95,42 @@ void traverse(node *start)
 		while (conductor != NULL)
 		{
 			printNode(conductor);
+			cout << " ";
 			conductor = conductor->nextRec;
 		}
 		cout << endl;
 	}
+	return;
+}
+
+node * searchList(node * &searchStart, string toFind)
+{
+	if (searchStart != NULL)
+	{
+		int listItemNumber = 0;
+		node *conductor = searchStart;
+		while (conductor != NULL)
+		{
+			listItemNumber++;
+			if (conductor->myString == toFind)
+			{
+				cout << "That string was found in the #" << listItemNumber << " node in the linked list." << endl;
+				return conductor;
+			}
+			else
+			{
+				conductor = conductor->nextRec;
+			}
+		}
+	}
+}
+
+void insertNode()
+{
+
+}
+
+void deleteNode(node * &listStart, string toFind)
+{
+	
 }
