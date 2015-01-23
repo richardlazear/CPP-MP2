@@ -67,7 +67,10 @@ int main()
 	traverse(root);
 
 	// TEST testing the search method
-	node *mySearchTest = searchList(root, "joe");
+	cout << "\nThis program will now search for a string in the linked list of nodes.\nPlease enter the string for which you want to search: ";
+	string searchInput;
+	cin >> searchInput;
+	node *mySearchTest = searchList(root, searchInput);
 
 	// TEST testing the insert method
 	cout << "\nThis program will now insert a new node.\nType \"0\" to insert at the start of the list, or type the string of the existing node after which you want to insert: ";
@@ -77,7 +80,7 @@ int main()
 	traverse(root);
 
 	// TEST testing the delete method
-	cout << "\nThis program will now delete node.\nType \"0\" to delete the node at the start of the list, or type the string of the existing node you wish to delete: ";
+	cout << "\nThis program will now delete node.\nType the string of the existing node you wish to delete: ";
 	string deleteInput;
 	cin >> deleteInput;
 	deleteNode(root, deleteInput);
@@ -148,9 +151,7 @@ void insertNode(node * &listStart, string toFind)
 
 	if (toFind == "0")
 	{
-		// TODO: does not work
-		node *newStart;
-		newStart = NULL;
+		node *newStart = new node;
 		// Add the new string to the new node
 		cout << "Please enter a string for the new node: ";
 		string input;
@@ -175,6 +176,25 @@ void insertNode(node * &listStart, string toFind)
 			// Point the newly inserted node to the next node
 			insertLocation->nextRec = temp;
 		}
+		else
+		{
+			cout << "  Therefore, the program will add a new node at the end of the list." << endl;
+			// Reach the end of the linked list to add a new node
+			insertLocation = listStart;
+			while (insertLocation->nextRec != NULL)
+			{
+				insertLocation = insertLocation->nextRec;
+			}
+			// Create a new node at the very end of the list
+			insertLocation->nextRec = new node;
+			insertLocation = insertLocation->nextRec;
+			insertLocation->nextRec = NULL;
+			// Add the new string to the new node
+			cout << "Please enter a string for the new node: ";
+			string input;
+			cin >> input;
+			insertLocation->myString = input;
+		}
 	}
 }
 
@@ -182,8 +202,9 @@ void deleteNode(node * &listStart, string toFind)
 {
 	// https://www.youtube.com/watch?v=Y0n86K43GO4
 	
+	node* deleteLocation = searchList(listStart, toFind);
 	node* temp1 = listStart;
-	if (toFind == "0")
+	if (listStart = deleteLocation)
 	{
 		listStart = temp1->nextRec;
 		// TODO: destroy the excluded node?? How??
@@ -191,7 +212,6 @@ void deleteNode(node * &listStart, string toFind)
 	}
 	else
 	{
-		node* deleteLocation = searchList(listStart, toFind);
 		// Reach the node preceding the one to be deleted
 		while (temp1->nextRec != deleteLocation)
 		{
