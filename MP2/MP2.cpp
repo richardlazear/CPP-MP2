@@ -70,7 +70,17 @@ int main()
 	node *mySearchTest = searchList(root, "joe");
 
 	// TEST testing the insert method
-	insertNode(root, "joe");
+	cout << "\nThis program will now insert a new node.\nType \"0\" to insert at the start of the list, or type the string of the existing node after which you want to insert: ";
+	string insertInput;
+	cin >> insertInput;
+	insertNode(root, insertInput);
+	traverse(root);
+
+	// TEST testing the delete method
+	cout << "\nThis program will now delete node.\nType \"0\" to delete the node at the start of the list, or type the string of the existing node you wish to delete: ";
+	string deleteInput;
+	cin >> deleteInput;
+	deleteNode(root, deleteInput);
 	traverse(root);
 
 	system("PAUSE");
@@ -134,11 +144,11 @@ node * searchList(node * &searchStart, string toFind)
 
 void insertNode(node * &listStart, string toFind)
 {
-	cout << "Please choose where you want to insert a new node.  \"0\" for the start of the list, \"1\" for anywhere else in the list: ";
-	int choice;
-	cin >> choice;
-	if (choice == 0)
+	// http://cslibrary.stanford.edu/103/LinkedListBasics.pdf
+
+	if (toFind == "0")
 	{
+		// TODO: does not work
 		node *newStart;
 		newStart = NULL;
 		// Add the new string to the new node
@@ -147,6 +157,7 @@ void insertNode(node * &listStart, string toFind)
 		cin >> input;
 		newStart->myString = input;
 		newStart->nextRec = listStart;
+		listStart = newStart;
 	}
 	else
 	{
@@ -169,5 +180,25 @@ void insertNode(node * &listStart, string toFind)
 
 void deleteNode(node * &listStart, string toFind)
 {
+	// https://www.youtube.com/watch?v=Y0n86K43GO4
 	
+	node* temp1 = listStart;
+	if (toFind == "0")
+	{
+		listStart = temp1->nextRec;
+		// TODO: destroy the excluded node?? How??
+		delete temp1;
+	}
+	else
+	{
+		node* deleteLocation = searchList(listStart, toFind);
+		// Reach the node preceding the one to be deleted
+		while (temp1->nextRec != deleteLocation)
+		{
+			temp1 = temp1->nextRec;
+		}
+		node* temp2 = deleteLocation->nextRec; // Reach the node following the one to be deleted
+		temp1->nextRec = temp2;
+		delete deleteLocation;
+	}
 }
