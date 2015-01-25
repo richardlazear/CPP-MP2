@@ -147,8 +147,6 @@ node * searchList(node * &searchStart, string toFind)
 
 void insertNode(node * &listStart, string toFind)
 {
-	// http://cslibrary.stanford.edu/103/LinkedListBasics.pdf
-
 	if (toFind == "0")
 	{
 		node *newStart = new node;
