@@ -80,7 +80,7 @@ int main()
 	traverse(root);
 
 	// TEST testing the delete method
-	cout << "\nThis program will now delete node.\nType the string of the existing node you wish to delete: ";
+	cout << "\nThis program will now delete a node.\nType the string of the existing node you wish to delete: ";
 	string deleteInput;
 	cin >> deleteInput;
 	deleteNode(root, deleteInput);
@@ -202,10 +202,14 @@ void deleteNode(node * &listStart, string toFind)
 	
 	node* deleteLocation = searchList(listStart, toFind);
 	node* temp1 = listStart;
-	if (listStart = deleteLocation)
+	if (deleteLocation == NULL)
+	{
+		return;
+	}
+	else if (listStart == deleteLocation)
 	{
 		listStart = temp1->nextRec;
-		// TODO: destroy the excluded node?? How??
+		temp1->nextRec = NULL; // Isolate the variable to be deleted (to avoid errors in older compilers)
 		delete temp1;
 	}
 	else
@@ -217,6 +221,9 @@ void deleteNode(node * &listStart, string toFind)
 		}
 		node* temp2 = deleteLocation->nextRec; // Reach the node following the one to be deleted
 		temp1->nextRec = temp2;
+
+		// Remove the node from the linked list
+		deleteLocation->nextRec = NULL;
 		delete deleteLocation;
 	}
 }
